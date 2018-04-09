@@ -27,7 +27,7 @@ mysql -u yourusername -p
 Now you still need to make a database:
 ```SQL
 CREATE DATABASE IF NOT EXISTS PNGallery;
-USE mydatingwebsite;
+USE PNGallery;
 CREATE TABLE IF NOT EXISTS users (
   id INT NOT NULL AUTO_INCREMENT,
   username TEXT CHARACTER SET utf8,
@@ -54,8 +54,8 @@ The website will be on localhost:8000 as default.
 
 ## Development
 ### To-do
-- [ ] Make gitignore
-- [ ] Fix mysql database
+- [x] Make gitignore
+- [x] Make a mysql database for myself
 - [ ] Add a .env
 - [ ] Fix the forms to my needs
 - [ ] Fix the EJS-files to my needs
