@@ -35,6 +35,8 @@ express()
   .delete('/:id', remove)
   .get('/sign-up', signupForm)
   .post('/sign-up', upload.single('picture'), signup)
+  .get('/change', changeForm)
+  .post('/change', upload.single('picture'), change)
   .get('/log-in', loginForm)
   .post('/log-in', login)
   .get('/log-out', logout)
@@ -54,6 +56,11 @@ function pictures(req, res, next) {
 }
 
 function picture(req, res, next) {
+  if (!req.session.user) {
+    res.status(401).send('Credentials required')
+    return
+  }
+
   var id = req.params.id
 
   connection.query('SELECT * FROM users WHERE id = ?', id, done)
@@ -93,6 +100,60 @@ function signupForm(req, res) {
 }
 
 function signup(req, res, next) {
+  var username = req.body.username
+  var password = req.body.password
+  var picture = req.body.picture
+  var message = req.body.message
+  var min = 8
+  var max = 160
+
+  if (!username || !password) {
+    return res.status(400).send('Username or password are missing')
+  }
+
+  if (password.length < min || password.length > max) {
+    return res.status(400).send(
+      'Password must be between ' + min +
+      ' and ' + max + ' characters'
+    )
+  }
+
+  connection.query('SELECT * FROM users WHERE username = ?', username, done)
+
+  function done(err, data) {
+    if (err) {
+      next(err)
+    } else if (data.length === 0) {
+      argon2.hash(password).then(onhash, next)
+    } else {
+      res.status(409).send('Username already in use')
+    }
+  }
+
+  function onhash(hash) {
+    connection.query('INSERT INTO users SET ?', {
+      username: username,
+      hash: hash,
+      picture: req.file ? req.file.filename : null,
+      message:message
+    }, oninsert)
+
+    function oninsert(err) {
+      if (err) {
+        next(err)
+      } else {
+        req.session.user = {username: username}
+        res.redirect('/' + data.insertId)
+      }
+    }
+  }
+}
+
+function changeForm(req, res) {
+  res.render('change.ejs')
+}
+
+function change(req, res, next) {
   var username = req.body.username
   var password = req.body.password
   var picture = req.body.picture

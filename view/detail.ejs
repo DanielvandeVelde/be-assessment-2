@@ -1,6 +1,6 @@
 <% include head.ejs %>
-<title><%= data.title %> - My movie website</title>
-<h1><%= data.title %></h1>
+<title><%= data.username %> - PNGallery</title>
+<h1><%= data.username %></h1>
 <% if (data.picture) { %>
 <img
   alt
@@ -8,7 +8,7 @@
 >
 <% } %>
 <p><%= data.message %></p>
-<% if (user) { %>
+<% if (data.username === user.username) { %>
   <p>
     <button
       id=js-remove

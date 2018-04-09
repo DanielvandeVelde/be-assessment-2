@@ -1,0 +1,22 @@
+<% include head.ejs %>
+<title>Sign up - PNGallery</title>
+<h1>Sign up</h1>
+<form action=/sign-up method=post enctype=multipart/form-data>
+  <label>
+    Your file (PNG only)
+    <input
+      name=picture
+      type=file
+      accept="image/png"
+    >
+  </label>
+  <label>
+    Message
+    <input
+      name=message
+      value="<%= user.message %>"
+    >
+  </label>
+  <button>Change</button>
+</form>
+<% include tail.ejs %>
