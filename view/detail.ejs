@@ -10,6 +10,11 @@
 <p><%= data.message %></p>
 <% if (data.username === user.username) { %>
   <p>
+  <a href="/change">
+    <button
+    class=happy
+    >Change</button>
+  </a>
     <button
       id=js-remove
       data-id="<%= data.id %>"

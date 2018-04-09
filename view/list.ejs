@@ -1,6 +1,7 @@
 <% include head.ejs %>
 <title>PNGallery</title>
 <h1>PNGallery</h1>
+<h2>Welcome to PNGallery. Where everybody can add 1 (one) picture. And that's it!</h2>
 <p>
   <% if (user) { %>
     Hello <%= user.username %>!
@@ -11,17 +12,14 @@
     <a href=/sign-up>Sign up</a>
   <% } %>
 </p>
+<section>
 <% for (var index = 0; index < data.length; index++) { %>
-<h2><a href="/<%= data[index].id %>">
+<a href="/<%= data[index].id %>">
 <img
   alt="<% data[index].message %>"
   src="/upload/<%= data[index].picture %>">
 </img>
-</a></h2>
+</a>
 <% } %>
-<% if (user) { %>
-  <p>
-    <a href=/change>Change picture/message</a>
-  </p>
-<% } %>
+</section>
 <% include tail.ejs %>

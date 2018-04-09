@@ -2,13 +2,23 @@
 
 body {
   font-family: sans-serif;
-  background: black;
-  color: white;
-  max-width: 36em;
+  background: #59253A;
+  color: #FEFFFF;
+  max-width: 90%;
   margin: 0 auto
 }
 
-a { color: lime }
+section {
+  background: #78244C;
+  width: 100%
+}
+
+a {
+  color: #895061;
+  text-decoration: none
+}
+
+a:hover { color: #2D4159}
 
 label, input, textarea, button { margin: 1em 0 }
 
@@ -28,5 +38,10 @@ img {
 
 .danger {
   background: red;
+  color: white
+}
+
+.happy {
+  background: green;
   color: white
 }

@@ -31,8 +31,6 @@ express()
   .set('view engine', 'ejs')
   .set('views', 'view')
   .get('/', pictures)
-  .get('/:id', picture)
-  .delete('/:id', remove)
   .get('/sign-up', signupForm)
   .post('/sign-up', upload.single('picture'), signup)
   .get('/change', changeForm)
@@ -40,6 +38,8 @@ express()
   .get('/log-in', loginForm)
   .post('/log-in', login)
   .get('/log-out', logout)
+  .get('/:id', picture)
+  .delete('/:id', remove)
   .use(notFound)
   .listen(8000)
 
@@ -78,19 +78,19 @@ function picture(req, res, next) {
 
 function remove(req, res, next) {
   var id = req.params.id
+  var username = req.session.user
 
   if (!req.session.user) {
     res.status(401).send('Credentials required')
     return
   }
-
-  connection.query('DELETE FROM users WHERE id = ?', id, done)
+  connection.query('DELETE * FROM users WHERE username = ? AND id = ?', [username, id], done)
 
   function done(err) {
     if (err) {
       next(err)
     } else {
-      res.json({status: 'ok'})
+      res.redirect('/')
     }
   }
 }
@@ -150,58 +150,34 @@ function signup(req, res, next) {
 }
 
 function changeForm(req, res) {
-  res.render('change.ejs')
+  if (!req.session.user) {
+    res.status(401).send('Credentials required')
+    return
+  }
+
+  res.render('change.ejs', {user: req.session.user})
 }
 
 function change(req, res, next) {
-  var username = req.body.username
-  var password = req.body.password
   var picture = req.body.picture
   var message = req.body.message
-  var min = 8
-  var max = 160
-
-  if (!username || !password) {
-    return res.status(400).send('Username or password are missing')
-  }
-
-  if (password.length < min || password.length > max) {
-    return res.status(400).send(
-      'Password must be between ' + min +
-      ' and ' + max + ' characters'
-    )
-  }
+  var username = req.session.user.username
 
   connection.query('SELECT * FROM users WHERE username = ?', username, done)
 
-  function done(err, data) {
-    if (err) {
-      next(err)
-    } else if (data.length === 0) {
-      argon2.hash(password).then(onhash, next)
-    } else {
-      res.status(409).send('Username already in use')
-    }
-  }
-
-  function onhash(hash) {
-    connection.query('INSERT INTO users SET ?', {
-      username: username,
-      hash: hash,
+    connection.query('UPDATE users SET ? where username = ?', [{
       picture: req.file ? req.file.filename : null,
-      message:message
-    }, oninsert)
+      message: message
+    }, username], done)
 
-    function oninsert(err) {
+    function done(err) {
       if (err) {
         next(err)
       } else {
-        req.session.user = {username: username}
-        res.redirect('/' + data.insertId)
+        res.redirect('/')
       }
     }
   }
-}
 
 function loginForm(req, res) {
   res.render('log-in.ejs')

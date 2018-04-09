@@ -60,7 +60,7 @@ The website will be on localhost:8000 as default.
 - [x] Add a .env
 - [x] Fix the forms to my needs
 - [x] Fix the EJS-files to my needs
-- [ ] Create a patch function and page
+- [x] Create a patch function and page
 - [ ] ESLINT everything!
 - [ ] Server side test for .png (Every png file begins with 89504e47)
 - [ ] Server side test for changes/removal so it cant be done by anyone
