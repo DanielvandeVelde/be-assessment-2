@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS users (
   username TEXT CHARACTER SET utf8,
   hash TEXT CHARACTER SET utf8,
   png TEXT CHARACTER SET utf8,
+  message TEXT CHARACTER SET utf8,
 
   PRIMARY KEY (id)
 );
@@ -40,10 +41,10 @@ CREATE TABLE IF NOT EXISTS users (
 Then you need a [`.env`][dotenv] file. In which you will need to add these few lines and change the values on the right to the actual values:  
 
 ```text
-DB_HOST=localhost,
-DB_USER=yourusername,
-DB_PASS=yourpassword,
-DB_NAME=PNGallery,
+DB_HOST=localhost
+DB_USER=yourusername
+DB_PASS=yourpassword
+DB_NAME=PNGallery
 SESSION_SECRET=yoursecretword
 ```
 After you only have to start the website by being in the folder and using:
@@ -56,18 +57,18 @@ The website will be on localhost:8000 as default.
 ### To-do
 - [x] Make gitignore
 - [x] Make a mysql database for myself
-- [ ] Add a .env
+- [x] Add a .env
 - [ ] Fix the forms to my needs
 - [ ] Fix the EJS-files to my needs
 - [ ] Create a patch function and page
 - [ ] ESLINT everything!
 - [ ] Add more features for a higher grade
-- [x] Never give in to the demands of .gif support :persevere: (Who wants a gifallery?!)
+- [x] Never give in to the demands of .gif support :persevere: (gifallery is a horrible name)
 
 ## License
-Originele auteur van de [auth mysql server][original]  
+Original author of the [auth mysql server][original]  
 [MIT][] © [Titus Wormer][author]   
-De miniscule veranderingen door   
+The very minor changes by  
 [Daniel van de Velde][co-author]  
 
 [dotenv]: https:/www.npmjs.com/package/dotenv
