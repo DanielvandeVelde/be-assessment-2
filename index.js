@@ -31,12 +31,10 @@ express()
   .set('view engine', 'ejs')
   .set('views', 'view')
   .get('/', pictures)
-  .post('/', upload.single('picture'), add)
-  .get('/add', form)
-  .get('/:id', movie)
+  .get('/:id', picture)
   .delete('/:id', remove)
   .get('/sign-up', signupForm)
-  .post('/sign-up', signup)
+  .post('/sign-up', upload.single('picture'), signup)
   .get('/log-in', loginForm)
   .post('/log-in', login)
   .get('/log-out', logout)
@@ -55,7 +53,7 @@ function pictures(req, res, next) {
   }
 }
 
-function movie(req, res, next) {
+function picture(req, res, next) {
   var id = req.params.id
 
   connection.query('SELECT * FROM users WHERE id = ?', id, done)
@@ -67,36 +65,6 @@ function movie(req, res, next) {
       next()
     } else {
       res.render('detail.ejs', {data: data[0], user: req.session.user})
-    }
-  }
-}
-
-function form(req, res) {
-  if (req.session.user) {
-    res.render('add.ejs')
-  } else {
-    res.status(401).send('Credentials required')
-  }
-}
-
-function add(req, res, next) {
-  if (!req.session.user) {
-    res.status(401).send('Credentials required')
-    return
-  }
-
-  connection.query('INSERT INTO users SET ?', {
-    picture: req.file ? req.file.filename : null,
-    title: req.body.title,
-    plot: req.body.plot,
-    description: req.body.description
-  }, done)
-
-  function done(err, data) {
-    if (err) {
-      next(err)
-    } else {
-      res.redirect('/' + data.insertId)
     }
   }
 }
@@ -127,6 +95,8 @@ function signupForm(req, res) {
 function signup(req, res, next) {
   var username = req.body.username
   var password = req.body.password
+  var picture = req.body.picture
+  var message = req.body.message
   var min = 8
   var max = 160
 
@@ -154,14 +124,19 @@ function signup(req, res, next) {
   }
 
   function onhash(hash) {
-    connection.query('INSERT INTO users SET ?', {username: username, hash: hash}, oninsert)
+    connection.query('INSERT INTO users SET ?', {
+      username: username,
+      hash: hash,
+      picture: req.file ? req.file.filename : null,
+      message:message
+    }, oninsert)
 
     function oninsert(err) {
       if (err) {
         next(err)
       } else {
         req.session.user = {username: username}
-        res.redirect('/')
+        res.redirect('/' + data.insertId)
       }
     }
   }

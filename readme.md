@@ -58,10 +58,11 @@ The website will be on localhost:8000 as default.
 - [x] Make gitignore
 - [x] Make a mysql database for myself
 - [x] Add a .env
-- [ ] Fix the forms to my needs
+- [x] Fix the forms to my needs
 - [ ] Fix the EJS-files to my needs
 - [ ] Create a patch function and page
 - [ ] ESLINT everything!
+- [ ] Server side test for .png (Every png file begins with 89504e47)
 - [ ] Add more features for a higher grade
 - [x] Never give in to the demands of .gif support :persevere: (gifallery is a horrible name)
 

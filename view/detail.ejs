@@ -1,13 +1,13 @@
 <% include head.ejs %>
 <title><%= data.title %> - My movie website</title>
 <h1><%= data.title %></h1>
-<% if (data.cover) { %>
+<% if (data.picture) { %>
 <img
   alt
-  src="/upload/<%= data.cover %>"
+  src="/upload/<%= data.picture %>"
 >
 <% } %>
-<p><%= data.description %></p>
+<p><%= data.message %></p>
 <% if (user) { %>
   <p>
     <button
