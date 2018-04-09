@@ -1,92 +1,77 @@
-# Auth Server
+# PNGallery
 
-> An [express-server][] with a [mysql][] database where people can sign up,
-> log in, stay logged in through sessions, and log out.
+This is a website that lets users upload a .png and a message of a certain amount of characters to this website.
 
-## Install
+## The webpages
+### Home
+The homepage is a gallery of images that previous users have uploaded.
 
-First, get the example:
+### Sign-up
+There's a small sign-up form where the user can make an account as well as upload the .png-file of his choice. This makes sure that every account contributes!
 
+### Changes   
+If the user is not happy with the picture he uploaded he can always change his current one out for a new one. Or change the message that displays with his picture.
+
+## Installing
+You can install the full application by for example using git:
 ```bash
-git clone git@github.com:cmda-be/course-17-18.git
-cd course-17-18/examples/auth-server
+git clone  git@github.com:DanielvandeVelde/be-assessment-2.git
+cd be-assessment-2
 npm install
 ```
-
-Follow the installation steps for the [mysql-server][] (adding movies),
-and add a session secret to `.env`:
-
-```txt
-...
-SESSION_SECRET=some-secret
-```
-
-Then, add a user table.  Log into mysql:
-
+After that you can log-in using mysql. Instead of 'yourusername' you should of course add your own username.
 ```sh
-mysql -u your-username -p
-# Enter your password
+mysql -u yourusername -p
+##and then enter your password
 ```
-
-…and run the following SQL to set up a users table:
-
-```sql
-USE mymoviewebsite;
+Now you still need to make a database:
+```SQL
+CREATE DATABASE IF NOT EXISTS PNGallery;
+USE mydatingwebsite;
 CREATE TABLE IF NOT EXISTS users (
   id INT NOT NULL AUTO_INCREMENT,
   username TEXT CHARACTER SET utf8,
   hash TEXT CHARACTER SET utf8,
+  png TEXT CHARACTER SET utf8,
+
   PRIMARY KEY (id)
 );
 ```
+Then you need a [`.env`][dotenv] file. In which you will need to add these few lines and change the values on the right to the actual values:  
 
-Finally, start the server with:
-
+```text
+DB_HOST=localhost,
+DB_USER=yourusername,
+DB_PASS=yourpassword,
+DB_NAME=PNGallery,
+SESSION_SECRET=yoursecretword
+```
+After you only have to start the website by being in the folder and using:
 ```bash
 npm start
 ```
+The website will be on localhost:8000 as default.
 
-## Changes
-
-The following commits show how this example was created:
-
-*   [`e18f1a4`](https://github.com/cmda-be/course-17-18/commit/e18f1a4)
-    add example
-*   [`08154ab`](https://github.com/cmda-be/course-17-18/commit/08154ab)
-    add argon2 as a dependency
-*   [`75f1c3b`](https://github.com/cmda-be/course-17-18/commit/75f1c3b)
-    add sign up form
-*   [`6d02648`](https://github.com/cmda-be/course-17-18/commit/6d02648)
-    add support for signing up
-*   [`b9cb339`](https://github.com/cmda-be/course-17-18/commit/b9cb339)
-    add log in form
-*   [`50da0ca`](https://github.com/cmda-be/course-17-18/commit/50da0ca)
-    add support for logging in
-*   [`d6bd9c2`](https://github.com/cmda-be/course-17-18/commit/d6bd9c2)
-    add express-session as a dependency
-*   [`9a477f7`](https://github.com/cmda-be/course-17-18/commit/9a477f7)
-    add note about session secret in .env
-*   [`746b8e2`](https://github.com/cmda-be/course-17-18/commit/746b8e2)
-    store username in session
-*   [`1232895`](https://github.com/cmda-be/course-17-18/commit/1232895)
-    prevent adding, removing if not logged in
-*   [`a26cec6`](https://github.com/cmda-be/course-17-18/commit/a26cec6)
-    show different list view when logged in
-*   [`ce7404d`](https://github.com/cmda-be/course-17-18/commit/ce7404d)
-    hide remove button when not logged in
-*   [`6244766`](https://github.com/cmda-be/course-17-18/commit/6244766)
-    add support for logging out
+## Development
+### To-do
+- [ ] Make gitignore
+- [ ] Fix mysql database
+- [ ] Add a .env
+- [ ] Fix the forms to my needs
+- [ ] Fix the EJS-files to my needs
+- [ ] Create a patch function and page
+- [ ] ESLINT everything!
+- [ ] Add more features for a higher grade
+- [x] Never give in to the demands of .gif support :persevere: (Who wants a gifallery?!)
 
 ## License
+Originele auteur van de [auth mysql server][original]  
+[MIT][] © [Titus Wormer][author]   
+De miniscule veranderingen door   
+[Daniel van de Velde][co-author]  
 
-[MIT][] © [Titus Wormer][author]
-
-[mit]: ../../license
-
-[express-server]: ../express-server
-
-[mysql-server]: ../mysql-server
-
-[mysql]: https://www.mysql.com
-
+[dotenv]: https:/www.npmjs.com/package/dotenv
+[original]:https://github.com/cmda-be/course-17-18/tree/master/examples/auth-server
+[mit]: https://opensource.org/licenses/MIT
 [author]: http://wooorm.com
+[co-author]: http://DanielvandeVelde.nl
