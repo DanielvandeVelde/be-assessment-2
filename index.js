@@ -30,8 +30,8 @@ express()
   }))
   .set('view engine', 'ejs')
   .set('views', 'view')
-  .get('/', movies)
-  .post('/', upload.single('cover'), add)
+  .get('/', pictures)
+  .post('/', upload.single('picture'), add)
   .get('/add', form)
   .get('/:id', movie)
   .delete('/:id', remove)
@@ -43,8 +43,8 @@ express()
   .use(notFound)
   .listen(8000)
 
-function movies(req, res, next) {
-  connection.query('SELECT * FROM movies', done)
+function pictures(req, res, next) {
+  connection.query('SELECT * FROM users', done)
 
   function done(err, data) {
     if (err) {
@@ -58,7 +58,7 @@ function movies(req, res, next) {
 function movie(req, res, next) {
   var id = req.params.id
 
-  connection.query('SELECT * FROM movies WHERE id = ?', id, done)
+  connection.query('SELECT * FROM users WHERE id = ?', id, done)
 
   function done(err, data) {
     if (err) {
@@ -85,8 +85,8 @@ function add(req, res, next) {
     return
   }
 
-  connection.query('INSERT INTO movies SET ?', {
-    cover: req.file ? req.file.filename : null,
+  connection.query('INSERT INTO users SET ?', {
+    picture: req.file ? req.file.filename : null,
     title: req.body.title,
     plot: req.body.plot,
     description: req.body.description
@@ -109,7 +109,7 @@ function remove(req, res, next) {
     return
   }
 
-  connection.query('DELETE FROM movies WHERE id = ?', id, done)
+  connection.query('DELETE FROM users WHERE id = ?', id, done)
 
   function done(err) {
     if (err) {
