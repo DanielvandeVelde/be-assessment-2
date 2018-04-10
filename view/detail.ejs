@@ -1,19 +1,18 @@
 <% include head.ejs %>
 <title><%= data.username %> - PNGallery</title>
-<h1><%= data.username %></h1>
+<h1>Posted by: <%= data.username %></h1>
 <% if (data.picture) { %>
 <img
-  alt
+  alt="<%= data.message %>"
   src="/upload/<%= data.picture %>"
 >
 <% } %>
+<h2>Message</h2>
 <p><%= data.message %></p>
 <% if (data.username === user.username) { %>
   <p>
-  <a href="/change">
-    <button
-    class=happy
-    >Change</button>
+  <a href=/change>
+    <button class=happy>Change</button>
   </a>
     <button
       id=js-remove
@@ -22,5 +21,5 @@
     >Remove</button>
   </p>
 <% } %>
-<p><a href="/">Back to list</a></p>
+<p><a href=/>Back to list</a></p>
 <% include tail.ejs %>

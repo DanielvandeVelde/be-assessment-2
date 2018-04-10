@@ -1,14 +1,24 @@
 <% include head.ejs %>
 <title>Log in - PNGallery</title>
 <h1>Log in</h1>
-<form action=/log-in method=post>
+<form
+  action=/log-in
+  method=post
+  >
   <label>
     Username
-    <input name=username>
+    <input
+      name=username
+      required
+      >
   </label>
   <label>
     Password
-    <input name=password type=password>
+    <input
+      name=password
+      type=password
+      required
+      >
   </label>
   <button>Log in</button>
 </form>

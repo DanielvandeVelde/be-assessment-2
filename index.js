@@ -29,6 +29,7 @@ express()
     secret: process.env.SESSION_SECRET
   }))
   .set('view engine', 'ejs')
+  .delete('/:id', remove)
   .set('views', 'view')
   .get('/', pictures)
   .get('/sign-up', signupForm)
@@ -39,7 +40,6 @@ express()
   .post('/log-in', login)
   .get('/log-out', logout)
   .get('/:id', picture)
-  .delete('/:id', remove)
   .use(notFound)
   .listen(8000)
 
@@ -57,7 +57,7 @@ function pictures(req, res, next) {
 
 function picture(req, res, next) {
   if (!req.session.user) {
-    res.status(401).send('Credentials required')
+    res.status(401).render('error.ejs')
     return
   }
 
@@ -78,13 +78,13 @@ function picture(req, res, next) {
 
 function remove(req, res, next) {
   var id = req.params.id
-  var username = req.session.user
 
   if (!req.session.user) {
-    res.status(401).send('Credentials required')
+    res.status(401).render('error.ejs')
     return
   }
-  connection.query('DELETE * FROM users WHERE username = ? AND id = ?', [username, id], done)
+
+  connection.query('DELETE FROM users WHERE id = ?', id, done)
 
   function done(err) {
     if (err) {
@@ -143,7 +143,7 @@ function signup(req, res, next) {
         next(err)
       } else {
         req.session.user = {username: username}
-        res.redirect('/' + data.insertId)
+        res.redirect('/')
       }
     }
   }
@@ -151,7 +151,7 @@ function signup(req, res, next) {
 
 function changeForm(req, res) {
   if (!req.session.user) {
-    res.status(401).send('Credentials required')
+    res.status(401).render('error.ejs')
     return
   }
 
@@ -163,9 +163,7 @@ function change(req, res, next) {
   var message = req.body.message
   var username = req.session.user.username
 
-  connection.query('SELECT * FROM users WHERE username = ?', username, done)
-
-    connection.query('UPDATE users SET ? where username = ?', [{
+    connection.query('UPDATE users SET ? WHERE username = ?', [{
       picture: req.file ? req.file.filename : null,
       message: message
     }, username], done)

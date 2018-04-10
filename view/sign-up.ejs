@@ -1,26 +1,40 @@
 <% include head.ejs %>
 <title>Sign up - PNGallery</title>
 <h1>Sign up</h1>
-<form action=/sign-up method=post enctype=multipart/form-data>
+<form
+  action=/sign-up
+  method=post
+  enctype=multipart/form-data
+  >
   <label>
     Username
-    <input name=username>
+    <input
+      name=username
+      required
+      >
   </label>
   <label>
     Password
-    <input name=password type=password>
+    <input
+      name=password
+      type=password
+      required
+    >
   </label>
   <label>
     Your file (PNG only)
     <input
       name=picture
       type=file
-      accept="image/png"
+      accept=image/png
+      required
     >
   </label>
   <label>
     Message
-    <input name=message>
+    <input name=message
+    required
+    >
   </label>
   <button>Sign up</button>
 </form>

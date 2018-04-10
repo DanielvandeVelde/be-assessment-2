@@ -1,20 +1,25 @@
 <% include head.ejs %>
 <title>Change - PNGallery</title>
 <h1>Change</h1>
-<form action=/change method=post enctype=multipart/form-data>
+<form
+  action=/change
+  method=post
+  enctype=multipart/form-data
+  >
   <label>
     Your file (PNG only)
     <input
       name=picture
       type=file
-      accept="image/png"
+      accept=image/png
+      required
     >
   </label>
   <label>
     Message
     <input
       name=message
-      value="<%= user.message %>"
+      required
     >
   </label>
   <button>Change</button>
