@@ -41,6 +41,18 @@ CREATE TABLE IF NOT EXISTS users (
   PRIMARY KEY (id)
 );
 ```
+
+So now you have made a database and a table named users.    
+A description of that table you just made is here:   
+
+| Field | Type | Default
+| --- | --- | ---
+| id | int | auto-increments
+| username | text | NULL
+| hash | text | NULL
+| png | text | NULL
+| message | text | NULL
+
 Then you need a [`.env`][dotenv] file. In which you will need to add these few lines and change the values on the right to the actual values:  
 
 ```text
@@ -65,7 +77,7 @@ The website will be on localhost:8000 as default.
 - [x] Make EJS-files
 - [x] Create a patch function and page
 - [ ] Make a cool database graphic
-- [ ] ESLINT everything!
+- [ ] Lint everything!
 - [ ] Server side test for .png (Every png file begins with 89504e47)
 - [ ] Server side test for changes/removal so it cant be done by anyone
 - [ ] Add more features for a higher grade
