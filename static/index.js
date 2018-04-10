@@ -11,15 +11,20 @@ function onremove(ev) {
   var node = ev.target
   var id = node.dataset.id
 
+  console.log(node)
+  console.log(id)
+
   fetch('/' + id, {method: 'delete'})
     .then(onresponse)
-    .then(onload, onfail)
+    .then(onload)
 
   function onresponse(res) {
+    console.log(res)
     return res.json()
   }
 
   function onload() {
+    console.log("onload")
     window.location = '/'
   }
 

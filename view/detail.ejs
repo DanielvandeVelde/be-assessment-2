@@ -14,6 +14,15 @@
   <a href=/change>
     <button class=happy>Change</button>
   </a>
+    <form
+      action="/<%= data.id %>"
+      method=post
+      >
+      <input
+        type=submit
+        value=delete
+        >
+    </form>
     <button
       id=js-remove
       data-id="<%= data.id %>"

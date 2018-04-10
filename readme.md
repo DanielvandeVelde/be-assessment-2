@@ -81,7 +81,8 @@ The website will be on localhost:8000 as default.
 - [x] Make forms
 - [x] Make EJS-files
 - [x] Create a patch function and page
-- [ ] Make a cool database graphic
+- [x] Make a ~~cool database graphic~~ database explanation
+- [ ] Fix deleting pictures and their users
 - [ ] Lint everything!
 - [ ] Server side test for .png (Every png file begins with 89504e47)
 - [ ] Server side test for changes/removal so it cant be done by anyone

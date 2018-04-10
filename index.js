@@ -29,7 +29,6 @@ express()
     secret: process.env.SESSION_SECRET
   }))
   .set('view engine', 'ejs')
-  .delete('/:id', remove)
   .set('views', 'view')
   .get('/', pictures)
   .get('/sign-up', signupForm)
@@ -41,6 +40,8 @@ express()
   .get('/log-out', logout)
   .get('/:id', picture)
   .use(notFound)
+  .post('/:id', remove)
+  .delete('/:id', removing)
   .listen(8000)
 
 function pictures(req, res, next) {
@@ -76,21 +77,44 @@ function picture(req, res, next) {
   }
 }
 
-function remove(req, res, next) {
+function remove(req, res) {
   var id = req.params.id
 
-  if (!req.session.user) {
-    res.status(401).render('error.ejs')
-    return
+    connection.query('DELETE users WHERE id = ?', id, done)
+
+    function done(err) {
+      if (err) {
+        return res.status(400).send('Cannot delete')
+      } else {
+        //Deleted, logout and destroy session
+        req.session.destroy(function (err) {
+          if (err) {
+            next(err)
+          } else {
+            res.redirect('/')
+          }
+        })
+      }
+    }
   }
+
+function removing(req, res) {
+  var id = req.params.id
 
   connection.query('DELETE FROM users WHERE id = ?', id, done)
 
   function done(err) {
     if (err) {
-      next(err)
+      return res.status(400).send('Cannot delete')
     } else {
-      res.redirect('/')
+      //Deleted, logout and destroy session
+      req.session.destroy(function (err) {
+        if (err) {
+          next(err)
+        } else {
+          res.redirect('/')
+        }
+      })
     }
   }
 }
