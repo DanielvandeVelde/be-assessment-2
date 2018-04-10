@@ -1,6 +1,7 @@
 # PNGallery
-
 This is a website that lets users upload a .png and a message of a certain amount of characters to this website.
+
+![PNGallery][homepage]
 
 ## The webpages
 ### Home
@@ -74,6 +75,7 @@ Original author of the [auth mysql server][original]
 The very minor changes by  
 [Daniel van de Velde][co-author]  
 
+[homepage]: https://raw.githubusercontent.com/DanielvandeVelde/be-assessment-2/master/Homescreen.png
 [dotenv]: https:/www.npmjs.com/package/dotenv
 [original]:https://github.com/cmda-be/course-17-18/tree/master/examples/auth-server
 [mit]: https://opensource.org/licenses/MIT
