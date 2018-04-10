@@ -5,15 +5,20 @@ This is a website that lets users upload a .png and a message of a certain amoun
 
 ## The webpages
 ### Home
-The homepage is a gallery of images that previous users have uploaded.
+The homepage is a gallery of images that previous users have uploaded.   
+The viewer of this page can sign-up or log-in.   
+When they click on any of the images they will be prompted to do so.  
 
-### Sign-up
+### Signing up
 There's a small sign-up form where the user can make an account as well as upload the .png-file of his choice.   
 This makes sure that every account contributes!
+After they've signed up they're automatically logged in and can enjoy the full site.
 
-### Changes   
-If the user is not happy with the picture he uploaded he can always change his current one out for a new one.   
-Or change the message that displays with his picture.
+### Logging in
+When the user is logged in they can see all the images and read the messages that come with it. When they view their own image they can change or delete it.
+
+### Changing
+Clicking the 'change' button under the user's own image will take them to a new form. Here they can change their image and message.
 
 ## Installing
 You can install the full application by for example using git:
