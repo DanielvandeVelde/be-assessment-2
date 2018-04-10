@@ -27,6 +27,8 @@ a {
 
 a:hover { color: #9FEDD7 }
 
+#deleteform input { background: #EDEAE5 }
+
 label, input, textarea, button { margin: 1em 0 }
 
 input, textarea, button {
