@@ -8,10 +8,12 @@ This is a website that lets users upload a .png and a message of a certain amoun
 The homepage is a gallery of images that previous users have uploaded.
 
 ### Sign-up
-There's a small sign-up form where the user can make an account as well as upload the .png-file of his choice. This makes sure that every account contributes!
+There's a small sign-up form where the user can make an account as well as upload the .png-file of his choice.   
+This makes sure that every account contributes!
 
 ### Changes   
-If the user is not happy with the picture he uploaded he can always change his current one out for a new one. Or change the message that displays with his picture.
+If the user is not happy with the picture he uploaded he can always change his current one out for a new one.   
+Or change the message that displays with his picture.
 
 ## Installing
 You can install the full application by for example using git:
@@ -44,7 +46,7 @@ Then you need a [`.env`][dotenv] file. In which you will need to add these few l
 ```text
 DB_HOST=localhost
 DB_USER=yourusername
-DB_PASS=yourpassword
+DB_PASSWORD=yourpassword
 DB_NAME=PNGallery
 SESSION_SECRET=yoursecretword
 ```
